@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport"
+        content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <style>
+        .MenuBar {
+            display: flex;
+            -webkit-box-pack: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            align-items: center;
+            width: 100vw;
+            position: fixed;
+            bottom: 0px;
+            padding: 24px 0;
+            background-color: black;
+            color: white;
+        }
+
+        @supports (-webkit-touch-callout: none) {
+            .MenuBar {
+                bottom: env(safe-area-inset-bottom) !important;
+            }
+
+            body {
+                padding: env(safe-area-inset-top) env(safe-area-inset-right) 0 env(safe-area-inset-left);
+            }
+        }
+
+        body {
+            margin: 0;
+        }
+
+        .center {
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            width: max-content;
+            transform: translate(-50%, -50%);
+        }
+
+        .backdrop {
+            position: fixed;
+            display: flex;
+            -webkit-box-align: center;
+            align-items: center;
+            -webkit-box-pack: center;
+            justify-content: center;
+            inset: 0px;
+            background-color: rgba(0, 0, 0, 0.5);
+            -webkit-tap-highlight-color: transparent;
+            z-index: -1;
+            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(20px);
+            background-color: rgba(0, 0, 0, .1) !important;
+        }
+
+        .dialogContainer {
+            height: 100%;
+            outline: 0px;
+            display: flex;
+            -webkit-box-pack: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            align-items: center;
+        }
+
+        .paper {
+            background-color: initial !important;
+            background-image: none !important;
+            box-shadow: none !important;
+            height: 100%;
+            margin: 0;
+            max-width: 800px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #dialog {
+            position: fixed;
+            z-index: 1300;
+            inset: 0px;
+            display: none;
+        }
+
+        #root {
+            height: 500vh;
+        }
+    </style>
+    <title>Position fixed iOS17 PWA bug</title>
+</head>
+<script>
+    const openDialog = () => {
+        document.getElementById("dialog").style.display = "block";
+    }
+    const closeDialog = () => {
+        document.getElementById("dialog").style.display = "none";
+    }
+</script>
+
+<body>
+    <div id="root">
+        <button class="center" onclick="openDialog()">Open dialog</button>
+        <div class="MenuBar">
+            MenuBar
+        </div>
+        <div id="dialog">
+            <div class="backdrop"></div>
+            <div class="dialogContainer" onclick="closeDialog()">
+                <div class="paper">
+                    Dialog content
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
